@@ -1,8 +1,6 @@
 import nodemailer from "nodemailer";
-import type { SentMessageInfo } from "nodemailer";
-import type { Transporter } from "nodemailer";
 
-const transporter: Transporter = nodemailer.createTransport({
+export const transporter = nodemailer.createTransport({
   host: process.env.MAIL_HOST, // e.g., smtp.gmail.com
   port: Number(process.env.MAIL_PORT), // 587 (TLS) or 465 (SSL)
   secure: process.env.MAIL_SECURE === "true", // true for 465, false for 587
@@ -14,40 +12,25 @@ const transporter: Transporter = nodemailer.createTransport({
 
 transporter.verify((error, success) => {
   if (error) {
-    console.error("❌ Mail server connection failed:", error);
+    console.error("Mail server connection failed:", error);
   } else {
-    console.log("✅ Mail server is ready to take messages");
+    console.log("Mail server is ready to take messages");
   }
 });
 
-export { transporter };
-
-interface SendMailOptions {
-  to: string | string[];
-  subject: string;
-  html?: string;
-  text?: string;
-}
-
 export class MailService {
-  private transporter = transporter;
-  private from: string;
-
   constructor() {
+    this.transporter = transporter;
     this.from = `"${process.env.MAIL_FROM_NAME}" <${process.env.MAIL_USER}>`;
   }
 
-  async sendMail({ to, subject, html, text }: SendMailOptions): Promise<{
-    status: boolean;
-    messageId?: string;
-    response?: string;
-  }> {
+  async sendMail({ to, subject, html, text }) {
     try {
       if (!to || !subject || (!html && !text)) {
         throw new Error("Missing required fields: to, subject, and html/text content");
       }
 
-      const info: SentMessageInfo = await this.transporter.sendMail({
+      const info = await this.transporter.sendMail({
         from: this.from,
         to,
         subject,
@@ -56,12 +39,12 @@ export class MailService {
       });
 
       return {
-        status: true,
+        success: true,
         messageId: info.messageId,
         response: info.response,
       };
     } catch (error) {
-      console.error("❌ Error sending email:", error);
+      console.error("Error sending email:", error);
       throw new Error("Failed to send email");
     }
   }

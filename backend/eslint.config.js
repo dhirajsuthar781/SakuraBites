@@ -1,61 +1,39 @@
-import tseslint from "typescript-eslint";
+// eslint.config.js
 import prettier from "eslint-plugin-prettier";
-import importPlugin from "eslint-plugin-import";
+import globals from "globals";
 
-export default tseslint.config(
+export default [
   {
-    ignores: ["dist", "node_modules"],
-  },
-  {
-    files: ["src/**/*.{ts,js}"],
+    ignores: ["node_modules", "dist", "coverage"],
+
     languageOptions: {
-      parser: tseslint.parser,
-      parserOptions: {
-        ecmaVersion: "latest",
-        sourceType: "module",
-        project: "./tsconfig.json",
-      },
+      globals: globals.node,
+      ecmaVersion: "latest",
+      sourceType: "module",
     },
+
     plugins: {
-      "@typescript-eslint": tseslint.plugin,
       prettier,
-      import: importPlugin, // ✅ add this
     },
+
     rules: {
-      /* Prettier */
-      "prettier/prettier": "error",
-
-      /* Quotes */
-      "quotes": ["error", "double", { "avoidEscape": true }],
-
-      /* General */
-      "no-console": ["warn", { allow: ["warn", "error"] }],
+      // ESLint rules
+      quotes: ["error", "double"],
+      semi: ["error", "always"],
       eqeqeq: ["error", "always"],
       curly: ["error", "all"],
-      "no-var": "error",
-      "prefer-const": "error",
 
-      /* TS-specific */
-      "@typescript-eslint/no-explicit-any": "warn",
-      "@typescript-eslint/consistent-type-imports": "error",
-      "@typescript-eslint/no-unused-vars": [
-        "warn",
-        { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
-      ],
-
-      /* Import Order */
-      "import/order": [
+      // Run Prettier as ESLint rule
+      "prettier/prettier": [
         "error",
         {
-          groups: [["builtin", "external", "internal"]],
-          pathGroups: [
-            { pattern: "express", group: "external", position: "before" },
-          ],
-          alphabetize: { order: "asc", caseInsensitive: true },
-          "newlines-between": "always",
+          singleQuote: false, // force double quotes
+          semi: true,
+          trailingComma: "es5",
+          tabWidth: 2,
+          printWidth: 100,
         },
       ],
-    }
-
-  }
-);
+    },
+  },
+];

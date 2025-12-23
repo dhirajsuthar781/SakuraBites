@@ -1,5 +1,6 @@
 import TodoService from "./todo.service.js";
 import { statusCode } from "../../utils/constants/statusCode.js";
+import "./todo.event.js";
 
 export default class TodoController {
   constructor() {
@@ -8,11 +9,8 @@ export default class TodoController {
 
   getAll = async (req, res, next) => {
     try {
-      const todos = await this.todoService.getAll();
-
       // res.fail('Todos not found');
-
-      res.success("Get All Todos", todos, statusCode.OK);
+      res.success("Get All Todos", { from: "todo Module" }, statusCode.OK);
     } catch (err) {
       next(err);
     }
@@ -20,19 +18,8 @@ export default class TodoController {
 
   create = async (req, res, next) => {
     try {
-      const { title } = req.body;
-      const newTodo = await this.todoService.create(title);
-      res.success("New Todo Created Succesfully", newTodo);
-    } catch (err) {
-      next(err);
-    }
-  };
-
-  delete = async (req, res, next) => {
-    try {
-      const { id } = req.params;
-      await this.todoService.delete(id);
-      res.success("Todo Deleted Successfully");
+      const todo = await this.todoService.create(req.body);
+      res.success("todo Created", todo, statusCode.CREATED);
     } catch (err) {
       next(err);
     }

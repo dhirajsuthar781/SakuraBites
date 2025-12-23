@@ -1,0 +1,192 @@
+import mongoose, { Schema } from 'mongoose'
+
+/**
+ * category of food like curry ->  type of curry
+ * recipe ke ander which work in sequence so no mess can be created
+ * give option of heading so things are manged perfectly
+ * ingredient list storing in recipe
+ * neutricaent counting etc. like (protien, calories) per recipe
+ * page for information of ingredients, their recipes etc.
+ * ask question , reviews features
+ * more similar like recipes storing for the recipe
+ * category like break fast etc. also
+ * Dinner Recipes - Fruits, Vegetables and Other Produce- Bread Recipes -Everyday Cooking - Lunch -Recipes Ingredients-  Appetizers and Snacks - Drinks -Breakfast and Brunch Desserts- Main Dishes- Side Dishes -Soups, Stews and Chili - Pasta and Noodles - Salad Recipes
+ *  search funcationlity , login (simple setup)
+ */
+
+const baseOptions = {
+     timestamps: true,
+     versionKey: 'v',
+     toJSON: { virtuals: true },
+     toObject: { virtuals: true },
+}
+
+// ---------- User Model ----------
+const UserSchema = new Schema({
+     email: { type: String, required: true, unique: true, index: true, lowercase: true },
+     name: { type: String },
+     avatar: {
+          type: String,
+          default: 'https://cdn-icons-png.flaticon.com/512/6596/6596121.png'
+     },
+     preferences: {
+          dietary: [{ type: String, index: true }], // vegan, keto, nut-free
+          excludedIngredients: [{ type: Schema.Types.ObjectId, ref: 'Ingredient' }],
+          excludedCategories: [{ type: Schema.Types.ObjectId, ref: 'Ingredient' }]
+     },
+     favorites: [{ type: Schema.Types.ObjectId, ref: 'Recipe', index: true }],
+     following: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+     socialLinks: {
+          instagram: String,
+          website: String
+     }
+}, baseOptions)
+
+// ---------- Ingredient Library ----------
+// Separating the "Concept" of an ingredient from the "Recipe Instance"
+const IngredientSchema = new Schema({
+     name: { type: String, required: true, unique: true, index: true },
+     slug: { type: String, unique: true },
+     category: { type: String, index: true }, // 'produce', 'masala', 'dairy'
+     image: String,
+     description: String, // For the ingredient info page
+     nutrientsPer100g: {
+          calories: { type: Number, default: 0 },
+          protein: { type: Number, default: 0 },
+          carbs: { type: Number, default: 0 },
+          fat: { type: Number, default: 0 }
+     },
+     usageCount: { type: Number, default: 0 } // For "Popular Ingredients" sections
+}, baseOptions);
+
+// ---------- Recipe ----------
+const RecipeIngredientSchema = new Schema({
+     ingredientId: { type: Schema.Types.ObjectId, ref: 'Ingredient', required: true },
+     name: String, // Denormalized name for fast display
+     amount: { type: Number, required: true }, // Amount for the base servings
+     unit: { type: String, required: true },
+     note: String, // e.g., "finely chopped"
+     isOptional: { type: Boolean, default: false },
+     // Formula: (amount / recipe.baseServings) * targetServings
+}, { _id: false })
+
+const InstructionSchema = new Schema({
+     step: { type: Number, required: true },
+     text: { type: String, required: true },
+     isHeading: { type: Boolean, default: false },
+     image: String,
+     timerSeconds: Number, // For in-app cooking mode
+}, { _id: false })
+
+const RecipeSchema = new Schema({
+     title: { type: String, required: true, index: true },
+     slug: { type: String, required: true, unique: true, index: true },
+     authorId: { type: Schema.Types.ObjectId, ref: 'User', required: true, index: true },
+     description: String,
+     coverImage: String,
+     videoUrl: String,
+
+     // Scaling Logic
+     baseServings: { type: Number, default: 4, required: true },
+     prepTime: { type: Number, index: true }, // in minutes
+     cookTime: { type: Number, index: true }, // in minutes
+     difficulty: { type: String, enum: ['easy', 'medium', 'hard'], index: true },
+
+     ingredients: [RecipeIngredientSchema],
+     instructions: [InstructionSchema],
+
+     // Discovery & Organization
+     categories: [{ type: String, index: true }], // ['Dinner', 'Italian']
+     tags: [{ type: String, index: true }], // ['Quick', 'High Protein']
+     cuisine: { type: String, index: true },
+     relatedRecipeIds: [{ type: Schema.Types.ObjectId, ref: 'Recipe' }],
+     // Total nutrients (Calculated on save based on ingredients)
+     totalNutrients: {
+          calories: Number,
+          protein: Number,
+          carbs: Number,
+          fat: Number
+     },
+     // Analytics/Social
+     stats: {
+          avgRating: { type: Number, default: 0, index: true },
+          reviewCount: { type: Number, default: 0 },
+          favoriteCount: { type: Number, default: 0 }
+     },
+
+     isPrivate: { type: Boolean, default: false, index: true },
+     isDeleted: { type: Boolean, default: false, index: true }
+}, baseOptions)
+
+// Compound index for sophisticated filtering
+RecipeSchema.index({ cuisine: 1, difficulty: 1, prepTime: 1 })
+RecipeSchema.index({ title: 'text', description: 'text', tags: 'text' })
+
+// ---------- Meal Plan ----------
+const MealPlanItemSchema = new Schema({
+     recipeId: { type: Schema.Types.ObjectId, ref: 'Recipe', required: true },
+     servings: { type: Number, required: true },
+     mealType: { type: String, enum: ['breakfast', 'lunch', 'dinner', 'snack'] },
+     isCompleted: { type: Boolean, default: false }
+}, { _id: false })
+
+const MealPlanSchema = new Schema({
+     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true, index: true },
+     date: { type: Date, required: true, index: true },
+     meals: [MealPlanItemSchema],
+
+     // Cached Grocery List for this specific plan
+     groceryList: [{
+          ingredientName: String,
+          amount: Number,
+          unit: String,
+          isBought: { type: Boolean, default: false }
+     }]
+}, baseOptions)
+
+// ---------- Recipe Notes & Reviews ----------
+const ReviewSchema = new Schema({
+     recipeId: { type: Schema.Types.ObjectId, ref: 'Recipe', required: true, index: true },
+     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+     rating: { type: Number, min: 1, max: 5, required: true },
+     comment: String,
+     images: [String],
+     // Personal tips/variations can be stored here or as a separate 'Note'
+     personalNotes: String,
+     isCooked: { type: Boolean, default: true }
+}, baseOptions)
+
+ReviewSchema.index({ recipeId: 1, createdAt: -1 })
+
+// ---------- Recommendation Events ----------
+const InteractionSchema = new Schema({
+     userId: { type: Schema.Types.ObjectId, ref: 'User', index: true },
+     recipeId: { type: Schema.Types.ObjectId, ref: 'Recipe', index: true },
+     action: { type: String, enum: ['view', 'click', 'share', 'cook_start', 'cook_complete'] },
+     duration: Number, // how long they stayed on the page
+     timestamp: { type: Date, default: Date.now }
+}, { timestamps: false })
+
+
+const QuestionSchema = new Schema({
+     recipeId: { type: Schema.Types.ObjectId, ref: 'Recipe', required: true, index: true },
+     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+     question: { type: String, required: true },
+     answer: {
+          text: String,
+          answeredBy: { type: Schema.Types.ObjectId, ref: 'User' },
+          answeredAt: Date
+     },
+     upvotes: { type: Number, default: 0 }
+}, baseOptions);
+
+
+// ---------- Exports ----------
+export const User = mongoose.model('User', UserSchema)
+export const Recipe = mongoose.model('Recipe', RecipeSchema)
+export const Ingredient = mongoose.model('Ingredient', IngredientSchema)
+export const MealPlan = mongoose.model('MealPlan', MealPlanSchema)
+export const Review = mongoose.model('Review', ReviewSchema)
+export const Interaction = mongoose.model('Interaction', InteractionSchema)// Define your user models here
+export const Question = mongoose.model('Question', QuestionSchema);
+

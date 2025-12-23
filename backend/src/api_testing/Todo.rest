@@ -2,7 +2,7 @@
 GET http://localhost:3000/api/v1/todo
 Content-Type: application/json
 
-### Post Requesdt
+### Post Request
 POST http://localhost:3000/api/v1/todo
 Content-Type: application/json
 
