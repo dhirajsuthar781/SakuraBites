@@ -63,5 +63,3 @@ npm run dev
 1.  **The "Shokunin" Angle:** It positions you as a craftsman, which is highly respected in senior-level interviews.
 2.  **Tech Lexicon:** Using terms like _Monorepo_, _SSOT_, and _Dependency Injection_ in a cooking context proves you think like a Senior Architect.
 3.  **Visuals:** The use of emojis and clean tables matches the Japanese aesthetic of "everything in its right place" (Mise en place).
-
-**Would you like me to help you design the `RecipeSchema` (JSON) that handles the "Atomic Scaling" logic??**
