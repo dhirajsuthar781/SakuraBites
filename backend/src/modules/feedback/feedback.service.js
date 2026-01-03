@@ -5,12 +5,12 @@ import { Notification, User, Review, Question } from '../user/user.model.js'
 class FeedbackService {
 
   constructor() {
-    
+
     this.eventBus = eventBus;
   }
 
   async createReview({ recipeId, userId, rating, comment }) {
-   
+
     let revi = await Review.create({
       recipeId,
       userId,
@@ -27,14 +27,14 @@ class FeedbackService {
     let review = await Review.findById(reviewId);
     if (!review) throw new Error('Review not found');
 
-    if(review.userId !== userId) throw new Error('Unauthorized');
+    if (review.userId !== userId) throw new Error('Unauthorized');
 
     await Review.deleteOne({ _id: reviewId });
     eventBus.emit('review.deleted', { reviewId, userId });
     return true;
   }
 
- 
+
 
   async createQuestion({ recipeId, userId, question }) {
 
@@ -45,6 +45,11 @@ class FeedbackService {
     });
 
     eventBus.emit('question.created', q);
+    return q;
+  }
+  async getRecipeQuestions({ recipeId, userId, limit }) {
+
+    let q = await Question.find({ recipeId: recipeId, userId: userId }).limit(limit).sort({ createdAt: -1 }).lean();
     return q;
   }
 
