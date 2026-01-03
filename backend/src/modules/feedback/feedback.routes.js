@@ -20,6 +20,7 @@ router.delete('/review/:id', authVerifier, feedbackController.deleteReview); // 
 /*------------------------------------
 Question  /question   apis
 --------------------------------------*/
+router.get('/questions/:id/by-recipe', authVerifier, feedbackController.getQuestionsByRecipe);
 router.post('/question', authVerifier, validate(createQuestionSchema), feedbackController.createQuestion); //100
 router.post('/question/:id/answer', authVerifier, validate(answerQuestionSchema), feedbackController.answerQuestion); // 100
 router.post('/question/:id/upvote', authVerifier, feedbackController.upvoteQuestion); // 100

@@ -51,13 +51,26 @@ export default class FeedbackController {
     } catch (e) { next(e); }
   };
 
+  getQuestionsByRecipe = async (req, res, next) => {
+    try {
+
+      const data = await FeedbackService.getRecipeQuestions({
+        recipeId: req.params.id,
+        userId: req.user.id,
+        limit:  req.query.limit || 10
+
+      });
+      res.success('Question posted', data, statusCode.OK);
+    } catch (e) { next(e); }
+  };
+
   upvoteQuestion = async (req, res, next) => {
     try {
       await FeedbackService.upvoteQuestion({
         questionId: req.params.id,
         userId: req.user.id
       });
-      res.success('Question upvoted');
+      res.success('Question upvoted', null, statusCode.CREATED);
     } catch (e) { next(e); }
   };
 
@@ -68,7 +81,7 @@ export default class FeedbackController {
         userId: req.user.id,
         answer: req.body.answer
       });
-      res.success('Question answered', data);
+      res.success('Question answered', data, statusCode.CREATED);
     } catch (e) { next(e); }
   };
 
@@ -78,7 +91,7 @@ export default class FeedbackController {
         questionId: req.params.id,
         userId: req.user.id
       });
-      res.success('Question deleted');
+      res.success('Question deleted', null, statusCode.OK);
     } catch (e) { next(e); }
   };
 
