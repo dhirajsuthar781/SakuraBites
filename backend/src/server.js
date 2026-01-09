@@ -1,5 +1,5 @@
 import "./config/env.js";
-
+import './config/cornJob.js';
 import { config } from "dotenv";
 config();
 

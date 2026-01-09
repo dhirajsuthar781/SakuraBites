@@ -6,16 +6,15 @@ import authVerifier from '../../middlewares/authVerifier.js';
 import {
   signupSchema,
   loginSchema,
-  verifyOtpSchema,
-  resetPasswordSchema
+  verifyOtpSchema 
 } from './auth.validator.js';
 
 const router = Router();
 const ctrl = new AuthController();
 
-router.post('/signup', validate(signupSchema), ctrl.signup); // 100
-router.post('/login', validate(loginSchema), ctrl.login);  // 100
-router.post('/verify-otp', validate(verifyOtpSchema), ctrl.verifyOtp);  // 100
-router.get('/me', authVerifier, ctrl.me);   // 100
+router.post('/signup', validate(signupSchema), ctrl.signup);
+router.post('/login', validate(loginSchema), ctrl.login);
+router.post('/verify-otp', validate(verifyOtpSchema), ctrl.verifyOtp);
+router.get('/me', authVerifier, ctrl.me);
 
 export default router;

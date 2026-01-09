@@ -35,7 +35,7 @@ export class MailService {
         text,
         html,
       });
-
+      console.log("Email sent:", info.messageId);
       return {
         success: true,
         messageId: info.messageId,

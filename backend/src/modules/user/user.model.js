@@ -30,7 +30,13 @@ const UserSchema = new Schema({
           type: String,
           default: 'https://cdn-icons-png.flaticon.com/512/6596/6596121.png'
      },
-    
+     preferences: {
+          dietary: [{ type: String, index: true }], // vegan, keto, nut-free
+          excludedIngredients: [{ type: Schema.Types.ObjectId, ref: 'Ingredient' }],
+          excludedCategories: [{ type: Schema.Types.ObjectId, ref: 'Ingredient' }]
+     },
+     isVerified: { type: Boolean, default: false },
+     otp: String,
      favorites: [{ type: Schema.Types.ObjectId, ref: 'Recipe', index: true }],
      socialLinks: {
           instagram: String,
@@ -43,7 +49,6 @@ const UserSchema = new Schema({
 const IngredientSchema = new Schema({
      name: { type: String, required: true, unique: true, index: true },
      slug: { type: String, unique: true },
-     category: { type: String, index: true }, // 'produce', 'masala', 'dairy'
      image: String,
      description: String, // For the ingredient info page
      nutrientsPer100g: {
@@ -195,8 +200,6 @@ const NotificationSchema = new Schema({
           index: true
      },
 
-
-
      // Lightweight message for in-app display
      title: String,
      message: String,
@@ -225,11 +228,30 @@ const NotificationPreferenceSchema = new Schema({
      },
 
      preferences: {
-          RECIPE_REVIEW: { type: Boolean, default: true },
-          RECIPE_QUESTION: { type: Boolean, default: true },
-          QUESTION_ANSWERED: { type: Boolean, default: true },
-          NEW_RECIPE_FROM_FOLLOWING: { type: Boolean, default: true },
-          SYSTEM: { type: Boolean, default: true }
+          RECIPE_REVIEW: {
+               type: Boolean,
+               default: true
+          },
+          RECIPE_REVIEW: {
+               type: Boolean,
+               default: true
+          },
+          RECIPE_QUESTION: {
+               type: Boolean,
+               default: true
+          },
+          QUESTION_ANSWERED: {
+               type: Boolean,
+               default: true
+          },
+          NEW_RECIPE_FROM_FOLLOWING: {
+               type: Boolean,
+               default: true
+          },
+          SYSTEM: {
+               type: Boolean,
+               default: true
+          }
      }
 
 }, baseOptions)
@@ -244,4 +266,3 @@ export const MealPlan = mongoose.model('MealPlan', MealPlanSchema)
 export const Review = mongoose.model('Review', ReviewSchema)
 export const Interaction = mongoose.model('Interaction', InteractionSchema)// Define your user models here
 export const Question = mongoose.model('Question', QuestionSchema);
-
