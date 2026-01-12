@@ -2,7 +2,8 @@ import { Router } from 'express';
 import RecipeController from './recipe.controller.js';
 import validate from '../../middlewares/default/validate.js';
 import rateLimiter from '../../middlewares/default/rateLimiter.js';
-import { queryRecipeSchema } from './recipe.validator.js'
+import { queryRecipeSchema, setMetaSchema } from './recipe.validator.js'
+import authVerifier from '../../middlewares/authVerifier.js';
 const router = Router();
 const recipeController = new RecipeController();
 
@@ -16,11 +17,11 @@ router.get("/:slug", recipeController.getRecipeBySlug); // populate properly
 /*------------------------------------
 Create Recipe api /r-c/*
 --------------------------------------*/
-router.post("/r-c/metadata", recipeController.getIngredientBySlug); // -incp
-router.put("/r-c/serving/:slug", recipeController.getIngredientBySlug); // -incp
-router.put("/r-c/ingredient/:slug", recipeController.getIngredientBySlug); // -incp
-router.put("/r-c/steps/:slug", recipeController.getIngredientBySlug); // -incp
-router.put("/r-c/category/:slug", recipeController.getIngredientBySlug); // -incp
+router.post("/r-c/metadata", validate(setMetaSchema), authVerifier, recipeController.rc_metadata); // -incp
+router.put("/r-c/serving/:slug", validate(), authVerifier, recipeController.getIngredientBySlug); // -incp
+router.put("/r-c/ingredient/:slug", validate(), authVerifier, recipeController.getIngredientBySlug); // -incp
+router.put("/r-c/steps/:slug", validate(), authVerifier, recipeController.getIngredientBySlug); // -incp
+router.put("/r-c/category/:slug", validate(), authVerifier, recipeController.getIngredientBySlug); // -incp
 
 
 /*------------------------------------

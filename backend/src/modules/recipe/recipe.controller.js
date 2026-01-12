@@ -80,7 +80,14 @@ export default class RecipeController {
   --------------------------------------*/
   rc_metadata = async (req, res, next) => {
     try {
-
+      /**
+       * @body
+       * title, description?, coverImage?, videoUrl?
+       */
+      
+      let d = await this.recipeService.setMetadata(req.body.title, req.body,req.user._id);
+      res.success(d.message, d.data, statusCode.OK);
+ 
     } catch (err) {
       next(err)
     }
