@@ -20,6 +20,15 @@ export default class RecipeController {
       next(err)
     }
   }
+  getDemoRecipe = async (req, res, next) => {
+    try {
+      const sl = await Recipe.find().limit(4).select('title slug coverImage authorId difficulty categories ').lean();
+      res.success('Get demo recipe', sl, statusCode.OK);
+
+    } catch (err) {
+      next(err)
+    }
+  }
 
   getIngredientBySlug = async (req, res, next) => {
     try {

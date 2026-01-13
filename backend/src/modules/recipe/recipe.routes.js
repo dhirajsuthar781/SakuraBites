@@ -10,8 +10,8 @@ const recipeController = new RecipeController();
 /*------------------------------------
 Recipe api /*
 --------------------------------------*/
-router.get("/:slug", recipeController.getRecipeBySlug); // populate properly
-
+router.get("/:slug/by-slug", recipeController.getRecipeBySlug); // populate properly
+router.get('/demo-recipe', recipeController.getDemoRecipe);
 
 
 /*------------------------------------
