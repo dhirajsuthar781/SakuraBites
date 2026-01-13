@@ -10,7 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { api } from "@/lib/api";
+import { FETCH } from "@/lib/api";
 import {
   EmailSchema,
   emailSchema,
@@ -21,6 +21,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function LoginPage() {
   const [step, setStep] = useState<"email" | "otp">("email");
@@ -45,7 +46,7 @@ export default function LoginPage() {
     try {
       setEmail(data.email);
 
-      const res = await api.post("/auth/login", data);
+      const res = await FETCH.post("/auth/login", data);
 
       if (res.data?.data?.next) {
         setStep("otp");
@@ -57,7 +58,7 @@ export default function LoginPage() {
 
   const verifyOtp = async (data: OTPSchema) => {
     try {
-      const res = await api.post("/auth/verify-otp", {
+      const res = await FETCH.post("/auth/verify-otp", {
         email,
         otp: data.otp,
       });
@@ -77,10 +78,8 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center">
-      <div className="w-full max-w-md p-8    ">
-        <h2 className="  text-center mb-8">
-          Login
-        </h2>
+      <div className="w-full max-w-md p-8">
+        <h2 className="  text-center mb-8">Login</h2>
 
         {step === "email" && (
           <Form {...emailForm}>
@@ -106,10 +105,19 @@ export default function LoginPage() {
                 )}
               />
 
+              <div className="text-center">
+                <p>
+                  Don't Have An Account?{" "}
+                  <Link href={"/auth/signup"}>
+                    <span className=" text-THREE hover:underline">Sign Up</span>
+                  </Link>
+                </p>
+              </div>
+
               <Button
                 disabled={isSubmitting}
                 type="submit"
-                className="w-full py-5 bg-THREE  "
+                className="w-full py-5 bg-THREE hover:bg-THREE/90"
               >
                 {isSubmitting ? "Sending..." : "Send OTP"}
               </Button>
