@@ -135,7 +135,7 @@ export default class RecipeController {
        * name, slug?, description?, image?
        */
       let ing = await this.recipeService.INGREDIENT.findOneAndDelete({ slug: req.params.slug });
-      if(!ing) throw new Error('Ingredient not found');
+      if (!ing) throw new Error('Ingredient not found');
       this.recipeService.eventBus.emit('ingredient.deleted', ing);
       res.success('Delete Ingredient', ing, statusCode.OK);
 
@@ -163,6 +163,14 @@ export default class RecipeController {
   }
   rc_serving = async (req, res, next) => {
     try {
+      /**
+       * @body
+       * baseServings,prepTime,cookTime,difficulty
+       */
+      let recipeSlug = req.params.slug;
+      let d = await this.recipeService.setServing(recipeSlug, req.body);
+      res.success(d.message, d.data, statusCode.OK);
+
 
     } catch (err) {
       next(err)
@@ -170,6 +178,15 @@ export default class RecipeController {
   }
   rc_ingredient = async (req, res, next) => {
     try {
+      /**
+       * @body
+       *  ArrayOf ingId,amount ,unit, note?, isOptional
+       */
+      let recipeSlug = req.params.slug;
+
+      let d = await this.recipeService.setIngredients(recipeSlug, req.body);
+      res.success(d.message, d.data, statusCode.OK);
+
 
     } catch (err) {
       next(err)
@@ -177,6 +194,15 @@ export default class RecipeController {
   }
   rc_steps = async (req, res, next) => {
     try {
+      /**
+       * @body
+       *  ArrayOf step,text,isHeading,image
+       */
+      let recipeSlug = req.params.slug;
+
+      let d = await this.recipeService.setSteps(recipeSlug, req.body);
+      res.success(d.message, d.data, statusCode.OK);
+      
 
     } catch (err) {
       next(err)

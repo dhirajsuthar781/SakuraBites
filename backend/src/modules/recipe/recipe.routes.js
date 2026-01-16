@@ -18,10 +18,10 @@ router.get('/demo-recipe', recipeController.getDemoRecipe);
 Create Recipe api /r-c/*
 --------------------------------------*/
 router.post("/r-c/metadata", validate(setMetaSchema), authVerifier, recipeController.rc_metadata); // -incp
-router.put("/r-c/serving/:slug", validate(), authVerifier, recipeController.getIngredientBySlug); // -incp
-router.put("/r-c/ingredient/:slug", validate(), authVerifier, recipeController.getIngredientBySlug); // -incp
-router.put("/r-c/steps/:slug", validate(), authVerifier, recipeController.getIngredientBySlug); // -incp
-router.put("/r-c/category/:slug", validate(), authVerifier, recipeController.getIngredientBySlug); // -incp
+router.put("/r-c/serving/:slug", validate(), authVerifier, recipeController.rc_serving); // -incp
+router.put("/r-c/ingredient/:slug", validate(), authVerifier, recipeController.rc_ingredient); // -incp
+router.put("/r-c/steps/:slug", validate(), authVerifier, recipeController.rc_steps); // -incp
+router.put("/r-c/category/:slug", validate(), authVerifier, recipeController.rc_category); // -incp
 
 
 /*------------------------------------

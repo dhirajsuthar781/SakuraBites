@@ -115,15 +115,14 @@ const RecipeSchema = new Schema({
           favoriteCount: { type: Number, default: 0 }
      },
 
-     dataComplete: [
-          {
-               initiated: { type: Boolean, default: false },
-               scaling: { type: Boolean, default: false },
-               ingredients: { type: Boolean, default: false },
-               instructions: { type: Boolean, default: false },
-               finialized: { type: Boolean, default: false }
-          }
-     ],
+     dataComplete: {
+          initiated: { type: Boolean, default: false },
+          scaling: { type: Boolean, default: false },
+          ingredients: { type: Boolean, default: false },
+          instructions: { type: Boolean, default: false },
+          finialized: { type: Boolean, default: false }
+     }
+     ,
 
      isDeleted: { type: Boolean, default: false, index: true }
 }, baseOptions)
