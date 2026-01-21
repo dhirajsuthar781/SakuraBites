@@ -1,0 +1,1190 @@
+{
+  "info": {
+    "_postman_id": "423cc14f-1313-4c23-96b1-db8eb4dabc71",
+    "name": "SukraBites",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "29109069"
+  },
+  "item": [
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "signup",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\":\"\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/auth/signup",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "auth",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\":\"nyqonowi@denipl.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/auth/login",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "verify-otp",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\":\"nyqonowi@denipl.com\",\r\n    \"otp\":\"870818\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}/auth/verify-otp",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "auth",
+                "verify-otp"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "me",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/auth/me",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "auth",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "recipe",
+      "item": [
+        {
+          "name": "r-c",
+          "item": [
+            {
+              "name": "1. metadata",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"title\":\"\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/recipe/r-c/metadata",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "recipe",
+                    "r-c",
+                    "metadata"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "2.serving",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"title\":\"\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/recipe/r-c/serving/:slug",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "recipe",
+                    "r-c",
+                    "serving",
+                    ":slug"
+                  ],
+                  "variable": [
+                    {
+                      "key": "slug",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "3.ingredient",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"title\":\"\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/recipe/r-c/ingredient/:slug",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "recipe",
+                    "r-c",
+                    "ingredient",
+                    ":slug"
+                  ],
+                  "variable": [
+                    {
+                      "key": "slug",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "4.steps Copy",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"title\":\"\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/recipe/r-c/steps/:slug",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "recipe",
+                    "r-c",
+                    "steps",
+                    ":slug"
+                  ],
+                  "variable": [
+                    {
+                      "key": "slug",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "5.category",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"title\":\"\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/recipe/r-c/category/:slug",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "recipe",
+                    "r-c",
+                    "category",
+                    ":slug"
+                  ],
+                  "variable": [
+                    {
+                      "key": "slug",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "ingredient",
+          "item": [
+            {
+              "name": "ingred-by-slug",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"title\":\"\"\r\n}"
+                },
+                "url": {
+                  "raw": "{{url}}/recipe/ingredient/:slug",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "recipe",
+                    "ingredient",
+                    ":slug"
+                  ],
+                  "variable": [
+                    {
+                      "key": "slug",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "create ingred",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"masala\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/recipe/ingredient",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "recipe",
+                    "ingredient"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "usage",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"title\":\"\"\r\n}"
+                },
+                "url": {
+                  "raw": "{{url}}/recipe/ingredient/usage/:slug",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "recipe",
+                    "ingredient",
+                    "usage",
+                    ":slug"
+                  ],
+                  "variable": [
+                    {
+                      "key": "slug",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "delete Ingred",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/recipe/ingredient/:slug",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "recipe",
+                    "ingredient",
+                    ":slug"
+                  ],
+                  "variable": [
+                    {
+                      "key": "slug",
+                      "value": "masala"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "recipe-by-slug",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/recipe/:slug/by-slug",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "recipe",
+                ":slug",
+                "by-slug"
+              ],
+              "variable": [
+                {
+                  "key": "slug",
+                  "value": "chicken-with-dried-apricot-sauce-PSZ"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "feedback",
+      "item": [
+        {
+          "name": "review",
+          "item": [
+            {
+              "name": "revie-by-user",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/feedback/review/review-by-user",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "feedback",
+                    "review",
+                    "review-by-user"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "by-recipe",
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/feedback/review/:id/by-recipe",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "feedback",
+                    "review",
+                    ":id",
+                    "by-recipe"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "694aa3c041f9f1d4da8e754e"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "delete-review",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/feedback/review/:id",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "feedback",
+                    "review",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "6964fcebf2801105736a3073"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "create-review",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"rating\":1,\r\n    \"comment\":\"Another testing review\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/feedback/review/:id",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "feedback",
+                    "review",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "694aa3c041f9f1d4da8e7554"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "questions",
+          "item": [
+            {
+              "name": "by-recipe",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/feedback/questions/:id/by-recipe",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "feedback",
+                    "questions",
+                    ":id",
+                    "by-recipe"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "694aa3c041f9f1d4da8e7554"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "delete-question",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/feedback/questions/:id",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "feedback",
+                    "questions",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "que-by-user",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/feedback/questions/que-by-user",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "feedback",
+                    "questions",
+                    "que-by-user"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "ans-by-user",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/feedback/questions/ans-by-user",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "feedback",
+                    "questions",
+                    "ans-by-user"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "create question",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"recipeId\":\"694aa3c041f9f1d4da8e7554\",\r\n    \"question\":\"nother Sample question\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/feedback/questions",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "feedback",
+                    "questions"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "give-answer-to-que",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"answer\":\"this is sample answer\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/feedback/questions/:id/answer",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "feedback",
+                    "questions",
+                    ":id",
+                    "answer"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "696621c7b9c3f4998206c08c"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "upvote",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/feedback/questions/:id/upvote",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "feedback",
+                    "questions",
+                    ":id",
+                    "upvote"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "6964fe837d8294eb7a2a32ea"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "notify",
+          "item": [
+            {
+              "name": "unread",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/feedback/notify/unread",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "feedback",
+                    "notify",
+                    "unread"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "mark-read",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/feedback/notify/:id/mark-read",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "feedback",
+                    "notify",
+                    ":id",
+                    "mark-read"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "6964ec1b7dfb496882ccaef4"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "user",
+      "item": [
+        {
+          "name": "notify",
+          "item": [
+            {
+              "name": "preference",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{url}}/user/notify/preference",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "user",
+                    "notify",
+                    "preference"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "preference",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{url}}/user/notify/preference",
+                  "host": [
+                    "{{url}}"
+                  ],
+                  "path": [
+                    "user",
+                    "notify",
+                    "preference"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "get-favorites",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/user/get-favorites",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "user",
+                "get-favorites"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "add-to-favorites",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{url}}/user/add-to-favorites/:id",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "user",
+                "add-to-favorites",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "694aa3c041f9f1d4da8e754e"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "url",
+      "value": ""
+    },
+    {
+      "key": "url",
+      "value": "",
+      "disabled": true
+    }
+  ]
+}
