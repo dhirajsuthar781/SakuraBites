@@ -132,7 +132,7 @@ type RecipeTypeApi = {
 type CategoryTypeApi = {
      recipeCount: number;
      name: string;
-     avgPrepTime: number;
+     avgPrepTime?: number;
      description: string;
 }
 type Pagination = {
